@@ -1045,51 +1045,45 @@ legend {
 /* ==========================================
    RESPONSIVE — TABLET (max 768px)
    ========================================== */
+/* ==========================================
+   RESPONSIVE — TABLET (max 768px)
+   ========================================== */
 @media (max-width: 768px) {
 
-  /* Header: logo | actions | toggle */
+  /* Header simplificado — sin hamburguesa */
   .site-header .container {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     gap: 0.5rem;
+    padding: 0 1rem;
   }
 
-  /* Menú desplegable absoluto */
   .main-nav {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    background: #1a1a1a;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 1rem 1.5rem;
-    gap: 0.75rem;
-    border-top: 1px solid #333;
-    z-index: 999;
+    order: 3;
     width: 100%;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.5rem;
+    padding: 0.5rem 0;
+    border-top: 1px solid #333;
   }
-
-  .main-nav.open { display: flex; }
 
   .main-nav .subtitle {
+    font-size: 0.75rem;
     white-space: normal;
-    font-size: 0.8rem;
     opacity: 0.6;
+    width: 100%;
   }
 
   .main-nav a {
-    width: 100%;
-    padding: 0.6rem 0.8rem;
+    font-size: 0.8rem;
+    padding: 0.3rem 0.6rem;
   }
 
-  .menu-toggle { display: block; }
-
-  /* Ocultar admin del header, aparece en el menú */
+  .menu-toggle { display: none; }
   .btn-admin { display: none; }
 
   .cart-indicator {
@@ -1097,21 +1091,50 @@ legend {
     padding: 0.4rem 0.8rem;
   }
 
-  /* Carousel */
-  .hero-carousel { height: 200px; }
-  .carousel-track img { height: 200px; }
+  /* Carousel — altura reducida, ancho completo */
+  .hero-carousel {
+    height: 180px;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+
+  .carousel-track { height: 180px; }
+  .carousel-track img { height: 180px; }
 
   /* Filtros apilados */
-  .controls { flex-direction: column; align-items: stretch; }
-  .control { width: 100%; }
-  .select, .input { width: 100%; min-width: unset; }
+  .filters-section { padding: 0.75rem 0; }
+
+  .controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+  }
+
+  .control {
+    width: 100%;
+  }
+
+  .select,
+  .input {
+    width: 100%;
+    min-width: unset;
+    box-sizing: border-box;
+  }
+
+  .controls .btn-primary {
+    width: 100%;
+    height: 44px;
+  }
 
   /* Grid 2 columnas */
   .grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    padding: 1rem;
+    gap: 0.75rem;
+    padding: 0.75rem;
   }
+
+  .card h3 { font-size: 0.85rem; }
+  .card p  { font-size: 0.78rem; }
 
   /* Modal producto vertical */
   .modal-product-content {
@@ -1122,69 +1145,104 @@ legend {
 
   .modal-product-content .product-image {
     width: 100%;
-    max-height: 220px;
+    max-height: 200px;
     object-fit: contain;
   }
 
   /* Checkout columna única */
   .checkout-wrapper { grid-template-columns: 1fr; }
   .checkout-summary-section { position: static; }
-  .checkout-form-section { padding: 1.5rem; }
-  fieldset { margin-bottom: 1.5rem; }
-  legend { font-size: 1rem; }
+  .checkout-form-section { padding: 1.25rem; }
+  fieldset { margin-bottom: 1.25rem; }
+  legend { font-size: 0.95rem; }
 
-  /* Admin */
+  /* Admin sidebar */
   .layout { flex-direction: column; }
   .sidebar { width: 100%; min-height: auto; padding: 1rem; }
   .sidebar nav { display: flex; flex-wrap: wrap; gap: 0.3rem; }
-  .sidebar nav a { margin: 0; padding: 0.5rem 0.75rem; font-size: 0.85rem; }
+  .sidebar nav a { margin: 0; padding: 0.5rem 0.75rem; font-size: 0.82rem; }
   .content { padding: 1rem; }
 
   /* Popup */
   .popup-image { display: none; }
-  .popup-title { font-size: 1.8rem; }
-  .popup-body { padding: 1.5rem; }
+  .popup-title { font-size: 1.6rem; }
+  .popup-body { padding: 1.25rem; }
+  .popup-overlay { padding: 0.75rem; }
 
-  /* Botones globales en mobile */
+  /* Botones — 100% salvo excepciones */
   button { width: 100%; }
 
-  /* Excepciones — NO deben ser 100% */
   .btn-cart-control,
   .modal-close-btn,
   .popup-close,
   .cart-indicator,
   .menu-toggle,
   .popup-cta,
-  .sidebar nav a,
-  .card button {
+  .sidebar nav a {
     width: auto !important;
   }
 
   .card button { width: 100% !important; }
+
+  /* Footer */
+  .footer-container { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 }
 
 /* ==========================================
-   RESPONSIVE — MOBILE CHICO (max 480px)
+   RESPONSIVE — MOBILE (max 480px)
    ========================================== */
 @media (max-width: 480px) {
 
-  .grid { grid-template-columns: 1fr; padding: 0.75rem; }
+  /* Header */
+  .logo img { max-width: 80px; }
 
-  .logo img { max-width: 90px; }
+  .main-nav .subtitle { display: none; } /* Ocultar en pantallas muy chicas */
 
-  /* Ocultar total del carrito, solo ícono */
+  .cart-indicator {
+    font-size: 0.75rem;
+    padding: 0.35rem 0.6rem;
+  }
+
+  /* Ocultar total, solo mostrar ícono y count */
   .cart-indicator #cartTotal { display: none; }
 
-  .countdown-block span { font-size: 1.2rem; min-width: 38px; }
-  .popup-title { font-size: 1.5rem; }
+  /* Carousel */
+  .hero-carousel { height: 140px; }
+  .carousel-track { height: 140px; }
+  .carousel-track img { height: 140px; }
 
-  .checkout-form-section { padding: 1rem; }
-  .checkout-summary-section { padding: 1rem; }
+  /* Grid 1 columna */
+  .grid {
+    grid-template-columns: 1fr;
+    padding: 0.5rem;
+    gap: 0.75rem;
+  }
+
+  /* Popup */
+  .popup-title { font-size: 1.4rem; }
+  .countdown-block span { font-size: 1.1rem; min-width: 36px; }
+  .countdown-sep { font-size: 1.1rem; }
+
+  /* Modal */
   .modal-content { padding: 1rem; }
+  dialog { width: 95vw; max-width: 95vw; }
 
-  .footer-container { grid-template-columns: 1fr; }
+  /* Checkout */
+  .checkout-form-section,
+  .checkout-summary-section { padding: 1rem; }
 
-  .cart-item-info span { font-size: 0.78rem; }
-  .cart-item-image, .cartItem img { width: 40px; height: 40px; }
+  /* Admin form */
+  form { padding: 1rem; }
+
+  /* Footer columna única */
+  .footer-container { grid-template-columns: 1fr; gap: 1rem; }
+  .footer { padding: 1.5rem 0.75rem 1rem; }
+
+  /* Carrito items compactos */
+  .cart-item-image,
+  .cartItem img { width: 38px; height: 38px; }
+  .cart-item-info span { font-size: 0.75rem; }
 }
+
+
 
