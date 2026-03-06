@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Finalizar Compra</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container">
+      <a href="index.html" class="logo">🛍 YourStore</a>
+      <nav class="main-nav">
+        <h2 class="subtitle">Checkout - Finalizar Compra</h2>
+        <a href="index.html">← Volver a tienda</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="checkout-container">
+    <div class="checkout-wrapper">
+      <div class="checkout-form-section">
+        <h1>Completa tus datos para continuar</h1>
+        
+        <form id="checkoutForm" action="pago.html" method="POST">
+          <fieldset>
+            <legend>Información personal</legend>
+            
+            <label for="nombre">Nombre completo</label>
+            <input 
+              type="text" 
+              id="nombre"
+              name="nombre" 
+              required 
+              aria-describedby="nombreHelp"
+            />
+            <small id="nombreHelp" class="form-help">Ej: Juan Carlos Pérez</small>
+
+            <label for="email">Correo electrónico</label>
+            <input 
+              type="email" 
+              id="email"
+              name="email" 
+              required 
+              aria-describedby="emailHelp"
+            />
+            <small id="emailHelp" class="form-help">Usaremos este email para tu comprobante</small>
+
+            <label for="direccion">Dirección de envío</label>
+            <textarea 
+              id="direccion"
+              name="direccion" 
+              rows="3" 
+              required
+              aria-describedby="direccionHelp"
+            ></textarea>
+            <small id="direccionHelp" class="form-help">Calle, número, apartamento (si aplica)</small>
+          </fieldset>
+
+          <fieldset>
+            <legend>Envío y pago</legend>
+
+            <label for="envio">Tipo de envío</label>
+            <select id="envio" name="envio" required>
+              <option value="">Selecciona una opción</option>
+              <option value="retiro">Retiro en tienda (0 ARS)</option>
+              <option value="normal">Envío estándar (150 ARS)</option>
+              <option value="express">Envío express (350 ARS)</option>
+            </select>
+
+            <label for="notas">Notas adicionales</label>
+            <textarea 
+              id="notas"
+              name="notas" 
+              rows="2"
+              placeholder="Ej: Dejar en recepción, llamar al llegar"
+            ></textarea>
+
+            <label for="pago">Método de pago</label>
+            <select id="pago" name="pago" required>
+              <option value="">Selecciona un método</option>
+              <option value="tarjeta">Tarjeta de crédito/débito</option>
+              <option value="transferencia">Transferencia bancaria</option>
+              <option value="mercadopago">MercadoPago</option>
+            </select>
+          </fieldset>
+
+          <button type="submit" class="btn-primary btn-large">Proceder al pago</button>
+          <a href="index.html" class="btn-secondary btn-large">Cancelar y volver</a>
+        </form>
+      </div>
+
+      <div class="checkout-summary-section">
+        <h2>Resumen de tu compra</h2>
+        <div id="checkoutCart" class="checkout-cart">
+          <p class="loading">Cargando carrito...</p>
+        </div>
+        <div class="checkout-totals">
+          <div class="totals-row">
+            <span>Subtotal:</span>
+            <span id="subtotal">$ 0</span>
+          </div>
+          <div class="totals-row">
+            <span>Envío:</span>
+            <span id="shippingCost">$ 0</span>
+          </div>
+          <div class="totals-row totals-total">
+            <span>Total:</span>
+            <span id="totalCheckout">$ 0</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-column">
+        <h3>🛍 Mi Tienda</h3>
+        <p>Tu tienda online de confianza. Productos de calidad, al mejor precio.</p>
+      </div>
+
+      <div class="footer-column">
+        <h4>Enlaces</h4>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="inventario.html">Inventario</a></li>
+          <li><a href="admin.html">Administrar</a></li>
+          <li><a href="#">Contacto</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-column">
+        <h4>Contacto</h4>
+        <p>📧 contacto@mitienda.com</p>
+        <p>📞 +54 9 11 1234 5678</p>
+        <p>📍 Buenos Aires, Argentina</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Mi Tienda. Todos los derechos reservados.</p>
+    </div>
+  </footer>
+
+  <script type="module" src="scripts/checkout.js"></script>
+</body>
+</html>

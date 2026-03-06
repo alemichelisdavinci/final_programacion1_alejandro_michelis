@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nuevo Producto | Admin</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>🛍 Admin</h2>
+      <nav>
+        <a href="admin.html">📊 Estadísticas</a>
+        <a href="nuevoproducto.html" class="active">➕ Nuevo Producto</a>
+        <a href="inventario.html">📦 Inventario</a>
+        <a href="configuracion.html">⚙️ Configuración</a>
+        <a href="index.html">🌐 Ir a la web</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <h1>➕ Cargar nuevo producto</h1>
+
+      <form id="productForm">
+        <label>Nombre
+          <input type="text" name="nombre" required placeholder="Ej: Monitor LG 27">
+        </label>
+        <label>Descripción
+          <textarea name="descripcion" required placeholder="Descripción del producto"></textarea>
+        </label>
+        <label>Precio
+          <input type="number" name="precio" required min="0" placeholder="Ej: 150000">
+        </label>
+        <label>Categoría
+          <input type="text" name="categoria" required placeholder="Ej: Monitores">
+        </label>
+        <label>Stock
+          <input type="number" name="stock" required min="0" placeholder="Ej: 10">
+        </label>
+        <label>URL de imagen
+          <input type="text" name="imagen" placeholder="https://... o images/foto.jpg">
+        </label>
+        <button type="submit">💾 Guardar producto</button>
+      </form>
+
+      <div id="mensaje" class="mensaje"></div>
+    </main>
+  </div>
+
+  <script>
+    const form = document.getElementById('productForm');
+    const mensaje = document.getElementById('mensaje');
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Leer productos extra guardados en localStorage
+      const productosExtra = JSON.parse(localStorage.getItem('productosExtra') || '[]');
+
+      // Generar un ID único basado en timestamp
+      const nuevoId = Date.now();
+
+      const nuevoProducto = {
+        id: nuevoId,
+        nombre: form.nombre.value.trim(),
+        descripcion: form.descripcion.value.trim(),
+        precio: parseFloat(form.precio.value),
+        categoria: form.categoria.value.trim(),
+        stock: parseInt(form.stock.value),
+        imagen: form.imagen.value.trim() || 'https://placehold.co/300x200?text=Sin+imagen'
+      };
+
+      productosExtra.push(nuevoProducto);
+      localStorage.setItem('productosExtra', JSON.stringify(productosExtra));
+
+      mensaje.style.color = 'green';
+      mensaje.textContent = '✅ Producto guardado correctamente.';
+      form.reset();
+
+      setTimeout(() => { mensaje.textContent = ''; }, 3000);
+    });
+  </script>
+</body>
+</html>

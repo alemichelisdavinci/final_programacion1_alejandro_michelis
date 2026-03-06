@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Programación I | Final | Alejandro Michelis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles/styles.css">
+</head>
+<body>
+
+<div id="offerPopup" class="popup-overlay">
+  <div class="popup-content">
+    <button class="popup-close" id="closePopupX">✕</button>
+    <div class="popup-image">
+      <img src="images/1.jpg" alt="Oferta especial">
+    </div>
+    <div class="popup-body">
+      <p class="popup-eyebrow">NO TE PIERDAS ESTA OPORTUNIDAD</p>
+      <h2 class="popup-title">OFERTA<br>LIMITADA</h2>
+      <p class="popup-desc">¡Apurate a comprar con un <strong>40% de descuento</strong>!<br>Tiempo restante hasta el fin de la promo:</p>
+      <div class="countdown" id="countdown">
+        <div class="countdown-block"><span id="days">04</span><small>DÍAS</small></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-block"><span id="hours">18</span><small>HORAS</small></div>
+        <div class="countdown-sep">:</div>
+        <div class="countdown-block"><span id="minutes">34</span><small>MINUTOS</small></div>
+      </div>
+      <button class="popup-cta" id="closePopupBtn">IR AL CATÁLOGO</button>
+    </div>
+  </div>
+</div>
+
+<header class="site-header">
+  <div class="container">
+    <h1 style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;">Traemos Todo</h1>
+
+    <a href="index.html" class="logo">
+      <img src="images/logo.webp" alt="YourStore - Traemos Todo" width="140" height="40">
+    </a>
+
+    <nav class="main-nav">
+      <h2 class="subtitle">Programación I · Final · Alejandro Michelis</h2>
+    </nav>
+
+    <div class="header-actions">
+      <!-- <a href="admin.html" class="btn-admin">⚙️ Ir al admin (Demo)</a> -->
+      <button id="miniCartBtn" class="cart-indicator">
+        🛒 <span id="cartCount" class="sr-only">0</span>
+        <span id="cartTotal">$ 0</span>
+      </button>
+    </div>
+
+    <button class="menu-toggle" id="menuToggleBtn" aria-label="Abrir menú">☰</button>
+  </div>
+</header>
+
+  <section class="hero-carousel">
+    <div class="carousel-track" id="carouselTrack">
+      <img src="images/banner1.jpg" alt="Promo 1">
+      <img src="images/banner2.jpg" alt="Promo 2">
+      <img src="images/banner3.jpg" alt="Promo 3">
+    </div>
+  </section>
+
+<aside class="filters-section">
+  <div class="container">
+    <div class="controls">
+      <label class="control">
+        <span class="control__icon">🎯</span>
+        <select id="categoryFilter" class="select">
+          <option value="all">Todas las categorías</option>
+        </select>
+      </label>
+      <label class="control">
+        <span class="control__icon">💰</span>
+        <select id="priceOrder" class="select">
+          <option value="none">Ordenar por precio</option>
+          <option value="asc">Menor → Mayor</option>
+          <option value="desc">Mayor → Menor</option>
+        </select>
+      </label>
+      <label class="control">
+        <span class="control__icon">🔎</span>
+        <input type="number" id="minPrice" placeholder="$ mín." class="input" min="0">
+      </label>
+      <label class="control">
+        <span class="control__icon">🔎</span>
+        <input type="number" id="maxPrice" placeholder="$ máx." class="input" min="0">
+      </label>
+      <div class="control">
+        <button id="rangeBtn" class="btn-primary">Filtrar</button>
+      </div>
+    </div>
+  </div>
+</aside>
+
+  <main id="productGrid" class="grid"></main>
+
+  <footer class="footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h3>Traemos Todo</h3>
+      <p>Tu tienda online de confianza. Productos de calidad, al mejor precio.</p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Enlaces</h4>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="inventario.html">Inventario</a></li>
+        <li><a href="admin.html">Administrar</a></li>
+        <li><a href="#">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-column">
+      <h4>Contacto</h4>
+      <p>📧 contacto@traemos todo.com</p>
+      <p>📞 +54 9 11 5142 6931</p>
+      <p>📍 Buenos Aires, Argentina</p>
+    </div>
+
+    <div class="footer-column">
+      <h4>Seguinos</h4>
+      <div class="social-icons">
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733547.png" alt="Facebook" /></a>
+        <a href="#"><img src="https://cdn-icons-png.flaticon.com/512/733/733579.png" alt="Instagram" /></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>&copy; 2026 Mi Tienda. Todos los derechos reservados.</p>
+    <ul>
+      <li>Profesor Fabrizio Carlassara</li>
+      <li>
+        <a href="mailto:fabrizio.carlassara@davinci.edu.ar?subject=P1%20-%20Consulta%20-%20DW2[M|T|N][A|B]%20-%20Apellido,%20Nombre" target="_blank">
+          fabrizio.carlassara@davinci.edu.ar
+        </a>
+      </li>
+      <li>Programación 1</li>
+      <li>
+        <a href="https://github.com/alemichelisdavinci/parcial2programacion">URL del repo de GitHub</a>
+      </li>
+    </ul>
+  </div>
+</footer>
+  <script type="module" src="scripts/index.js"></script>
+</body>
+</html>

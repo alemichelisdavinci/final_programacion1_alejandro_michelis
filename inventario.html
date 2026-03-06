@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inventario | Admin</title>
+  <link rel="stylesheet" href="styles/styles.css" />
+  <style>
+    .inventory-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .inventory-card {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.15s;
+    }
+
+    .inventory-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .inventory-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .inventory-card-body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 0.3rem;
+    }
+
+    .inventory-card-body h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: #111;
+      margin: 0;
+    }
+
+    .inventory-card-body p {
+      font-size: 0.82rem;
+      color: #666;
+      margin: 0;
+      line-height: 1.4;
+    }
+
+    .inventory-card-meta {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-top: 0.4rem;
+    }
+
+    .badge {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .badge-price {
+      background: #ede9fe;
+      color: #2c1ad1;
+    }
+
+    .badge-stock {
+      background: #dcfce7;
+      color: #16a34a;
+    }
+
+    .badge-stock.low {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .badge-category {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    .badge-manual {
+      background: #fef9c3;
+      color: #854d0e;
+    }
+
+    .inventory-card-actions {
+      display: flex;
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      border-top: 1px solid #f0f0f0;
+      background: #fafafa;
+    }
+
+    .inventory-card-actions button {
+      flex: 1;
+      padding: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 0;
+      width: auto !important;
+      transition: background 0.2s;
+    }
+
+    .btn-edit {
+      background: #2c1ad1;
+      color: #fff;
+    }
+
+    .btn-edit:hover {
+      background: #351b7a;
+    }
+
+    .btn-delete {
+      background: #fee2e2;
+      color: #dc2626;
+    }
+
+    .btn-delete:hover {
+      background: #fca5a5;
+    }
+
+    .inventory-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .inventory-header h1 {
+      margin: 0;
+    }
+
+    #productCount {
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .empty-state {
+      text-align: center;
+      padding: 3rem;
+      color: #888;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <h2>🛍 Admin</h2>
+      <nav>
+        <a href="admin.html">📊 Estadísticas</a>
+        <a href="nuevoproducto.html">➕ Nuevo Producto</a>
+        <a href="inventario.html" class="active">📦 Inventario</a>
+        <a href="configuracion.html">⚙️ Configuración</a>
+        <a href="index.html">🌐 Ir a la web</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <div class="inventory-header">
+        <h1>📦 Inventario de Productos</h1>
+        <span id="productCount"></span>
+      </div>
+
+      <div id="productList" class="inventory-grid"></div>
+    </main>
+  </div>
+
+  <script>
+    async function cargarProductos() {
+      const lista = document.getElementById('productList');
+
+      try {
+        const res = await fetch('productos.json');
+        if (!res.ok) throw new Error('No se pudo cargar productos.json');
+        const productosBase = await res.json();
+
+        // Combinar con productos agregados manualmente desde localStorage
+        const productosExtra = JSON.parse(localStorage.getItem('productosExtra') || '[]');
+        const productos = [...productosBase, ...productosExtra];
+
+        lista.innerHTML = '';
+
+        if (productos.length === 0) {
+          lista.innerHTML = '<p class="empty-state">No hay productos cargados.</p>';
+          return;
+        }
+
+        document.getElementById('productCount').textContent = `${productos.length} productos`;
+
+        productos.forEach(prod => {
+          const stockBajo = prod.stock <= 5;
+          const esExtra = productosExtra.some(p => p.id === prod.id);
+
+          const card = document.createElement('div');
+          card.className = 'inventory-card';
+          card.innerHTML = `
+            <img
+              src="${prod.imagen}"
+              alt="${prod.nombre}"
+              onerror="this.src='https://placehold.co/280x180?text=Sin+imagen'"
+            >
+            <div class="inventory-card-body">
+              <h3>${prod.nombre}</h3>
+              <p>${prod.descripcion}</p>
+              <div class="inventory-card-meta">
+                <span class="badge badge-price">$ ${prod.precio.toLocaleString('es-AR')}</span>
+                <span class="badge badge-stock ${stockBajo ? 'low' : ''}">
+                  ${stockBajo ? '⚠️' : '✅'} Stock: ${prod.stock}
+                </span>
+                <span class="badge badge-category">${prod.categoria}</span>
+                ${esExtra ? '<span class="badge badge-manual">✏️ Manual</span>' : ''}
+              </div>
+            </div>
+            <div class="inventory-card-actions">
+              <button class="btn-edit" onclick="editarProducto(${prod.id})">✏️ Editar</button>
+              <button class="btn-delete" onclick="eliminarProducto(${prod.id})">🗑 Eliminar</button>
+            </div>
+          `;
+          lista.appendChild(card);
+        });
+
+      } catch (err) {
+        lista.innerHTML = `<p class="empty-state">❌ Error al cargar productos: ${err.message}</p>`;
+      }
+    }
+
+    function editarProducto(id) {
+      window.location.href = `editar.html?id=${id}`;
+    }
+
+    function eliminarProducto(id) {
+      if (!confirm('¿Estás seguro de eliminar este producto?')) return;
+
+      // Solo se pueden eliminar productos agregados manualmente (productosExtra)
+      const productosExtra = JSON.parse(localStorage.getItem('productosExtra') || '[]');
+      const index = productosExtra.findIndex(p => p.id === id);
+
+      if (index !== -1) {
+        productosExtra.splice(index, 1);
+        localStorage.setItem('productosExtra', JSON.stringify(productosExtra));
+        alert('✅ Producto eliminado correctamente.');
+        cargarProductos();
+      } else {
+        alert('⚠️ Este producto pertenece al catálogo base y no puede eliminarse sin un servidor.\n\nSolo podés eliminar productos marcados como "✏️ Manual".');
+      }
+    }
+
+    cargarProductos();
+  </script>
+</body>
+</html>
