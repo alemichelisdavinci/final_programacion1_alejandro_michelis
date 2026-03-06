@@ -233,6 +233,7 @@ body {
   color: #999;
 }
 
+/* ← min-width: unset para que no rompa en mobile */
 .select,
 .input {
   appearance: none;
@@ -240,7 +241,8 @@ body {
   border: 1px solid #ccc;
   border-radius: var(--radius);
   background: #fff;
-  min-width: 140px;
+  min-width: unset;
+  width: 100%;
   font-size: 0.85rem;
   outline: none;
   transition: border-color 0.25s, box-shadow 0.25s;
@@ -311,10 +313,11 @@ body {
 
 /* ==========================================
    GRID DE PRODUCTOS
+   ← minmax reducido a 160px para mobile
    ========================================== */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 1.5rem;
   padding: 2rem;
 }
@@ -983,16 +986,7 @@ legend {
 }
 
 .payment-security p { margin: 0; }
-
-.payment-status {
-  margin-top: 0.8rem;
-  font-size: 0.95rem;
-  font-weight: 600;
-  text-align: center;
-  min-height: 1.4rem;
-  color: var(--primary);
-}
-
+.payment-status { margin-top: 0.8rem; font-size: 0.95rem; font-weight: 600; text-align: center; min-height: 1.4rem; color: var(--primary); }
 .payment-status.error   { color: #c0392b; }
 .payment-status.success { color: #27ae60; }
 
@@ -1045,37 +1039,31 @@ legend {
 /* ==========================================
    RESPONSIVE — TABLET (max 768px)
    ========================================== */
-/* ==========================================
-   RESPONSIVE — TABLET (max 768px)
-   ========================================== */
 @media (max-width: 768px) {
 
-  /* Header simplificado — sin hamburguesa */
+  /* Header */
   .site-header .container {
-    display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 0.5rem;
     padding: 0 1rem;
+    gap: 0.5rem;
   }
 
   .main-nav {
     order: 3;
     width: 100%;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: flex-start;
-    gap: 0.5rem;
-    padding: 0.5rem 0;
+    gap: 0.4rem;
+    padding: 0.4rem 0;
     border-top: 1px solid #333;
+    flex: none;
   }
 
   .main-nav .subtitle {
+    width: 100%;
     font-size: 0.75rem;
     white-space: normal;
     opacity: 0.6;
-    width: 100%;
   }
 
   .main-nav a {
@@ -1083,25 +1071,20 @@ legend {
     padding: 0.3rem 0.6rem;
   }
 
-  .menu-toggle { display: none; }
   .btn-admin { display: none; }
+  .menu-toggle { display: none; }
 
   .cart-indicator {
     font-size: 0.8rem;
     padding: 0.4rem 0.8rem;
   }
 
-  /* Carousel — altura reducida, ancho completo */
-  .hero-carousel {
-    height: 180px;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-  }
-
+  /* Carousel */
+  .hero-carousel { height: 180px; }
   .carousel-track { height: 180px; }
   .carousel-track img { height: 180px; }
 
-  /* Filtros apilados */
+  /* Filtros — columna */
   .filters-section { padding: 0.75rem 0; }
 
   .controls {
@@ -1110,15 +1093,12 @@ legend {
     gap: 0.5rem;
   }
 
-  .control {
-    width: 100%;
-  }
+  .control { width: 100%; }
 
   .select,
   .input {
     width: 100%;
     min-width: unset;
-    box-sizing: border-box;
   }
 
   .controls .btn-primary {
@@ -1133,8 +1113,9 @@ legend {
     padding: 0.75rem;
   }
 
-  .card h3 { font-size: 0.85rem; }
+  .card h3 { font-size: 0.88rem; }
   .card p  { font-size: 0.78rem; }
+  .card .info { padding: 0.75rem; }
 
   /* Modal producto vertical */
   .modal-product-content {
@@ -1149,14 +1130,14 @@ legend {
     object-fit: contain;
   }
 
-  /* Checkout columna única */
+  /* Checkout */
   .checkout-wrapper { grid-template-columns: 1fr; }
   .checkout-summary-section { position: static; }
   .checkout-form-section { padding: 1.25rem; }
   fieldset { margin-bottom: 1.25rem; }
   legend { font-size: 0.95rem; }
 
-  /* Admin sidebar */
+  /* Admin */
   .layout { flex-direction: column; }
   .sidebar { width: 100%; min-height: auto; padding: 1rem; }
   .sidebar nav { display: flex; flex-wrap: wrap; gap: 0.3rem; }
@@ -1167,11 +1148,11 @@ legend {
   .popup-image { display: none; }
   .popup-title { font-size: 1.6rem; }
   .popup-body { padding: 1.25rem; }
-  .popup-overlay { padding: 0.75rem; }
 
-  /* Botones — 100% salvo excepciones */
+  /* Botones globales */
   button { width: 100%; }
 
+  /* Excepciones */
   .btn-cart-control,
   .modal-close-btn,
   .popup-close,
@@ -1184,26 +1165,18 @@ legend {
 
   .card button { width: 100% !important; }
 
-  /* Footer */
+  /* Footer 2 columnas */
   .footer-container { grid-template-columns: 1fr 1fr; gap: 1.5rem; }
 }
 
 /* ==========================================
-   RESPONSIVE — MOBILE (max 480px)
+   RESPONSIVE — MOBILE CHICO (max 480px)
    ========================================== */
 @media (max-width: 480px) {
 
   /* Header */
   .logo img { max-width: 80px; }
-
-  .main-nav .subtitle { display: none; } /* Ocultar en pantallas muy chicas */
-
-  .cart-indicator {
-    font-size: 0.75rem;
-    padding: 0.35rem 0.6rem;
-  }
-
-  /* Ocultar total, solo mostrar ícono y count */
+  .main-nav .subtitle { display: none; }
   .cart-indicator #cartTotal { display: none; }
 
   /* Carousel */
@@ -1221,28 +1194,28 @@ legend {
   /* Popup */
   .popup-title { font-size: 1.4rem; }
   .countdown-block span { font-size: 1.1rem; min-width: 36px; }
-  .countdown-sep { font-size: 1.1rem; }
 
   /* Modal */
   .modal-content { padding: 1rem; }
   dialog { width: 95vw; max-width: 95vw; }
 
-  /* Checkout */
+  /* Checkout / Pago */
   .checkout-form-section,
   .checkout-summary-section { padding: 1rem; }
 
   /* Admin form */
   form { padding: 1rem; }
 
-  /* Footer columna única */
+  /* Footer 1 columna */
   .footer-container { grid-template-columns: 1fr; gap: 1rem; }
-  .footer { padding: 1.5rem 0.75rem 1rem; }
 
-  /* Carrito items compactos */
+  /* Carrito */
   .cart-item-image,
   .cartItem img { width: 38px; height: 38px; }
   .cart-item-info span { font-size: 0.75rem; }
 }
+
+
 
 
 
