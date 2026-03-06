@@ -3,16 +3,22 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Finalizar Compra</title>
+  <title>Finalizar Compra | Traemos Todo</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles/styles.css" />
 </head>
 <body>
+
   <header class="site-header">
     <div class="container">
-      <a href="index.html" class="logo">🛍 YourStore</a>
+      <h1 style="position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;">
+        Traemos Todo
+      </h1>
+      <a href="index.html" class="logo">
+        <img src="images/logo.webp" alt="Traemos Todo" width="140" height="40">
+      </a>
       <nav class="main-nav">
-        <h2 class="subtitle">Checkout - Finalizar Compra</h2>
+        <h2 class="subtitle">Checkout · Finalizar Compra</h2>
         <a href="index.html">← Volver a tienda</a>
       </nav>
     </div>
@@ -20,39 +26,45 @@
 
   <main class="checkout-container">
     <div class="checkout-wrapper">
+
+      <!-- Formulario -->
       <div class="checkout-form-section">
-        <h1>Completa tus datos para continuar</h1>
-        
-        <form id="checkoutForm" action="pago.html" method="POST">
+        <h1>Completá tus datos para continuar</h1>
+
+        <form id="checkoutForm">
+
           <fieldset>
             <legend>Información personal</legend>
-            
+
             <label for="nombre">Nombre completo</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               id="nombre"
-              name="nombre" 
-              required 
+              name="nombre"
+              required
+              placeholder="Ej: Juan Carlos Pérez"
               aria-describedby="nombreHelp"
             />
-            <small id="nombreHelp" class="form-help">Ej: Juan Carlos Pérez</small>
+            <small id="nombreHelp" class="form-help">Tal como figura en tu documento</small>
 
             <label for="email">Correo electrónico</label>
-            <input 
-              type="email" 
+            <input
+              type="email"
               id="email"
-              name="email" 
-              required 
+              name="email"
+              required
+              placeholder="ejemplo@correo.com"
               aria-describedby="emailHelp"
             />
             <small id="emailHelp" class="form-help">Usaremos este email para tu comprobante</small>
 
             <label for="direccion">Dirección de envío</label>
-            <textarea 
+            <textarea
               id="direccion"
-              name="direccion" 
-              rows="3" 
+              name="direccion"
+              rows="3"
               required
+              placeholder="Calle, número, piso/depto"
               aria-describedby="direccionHelp"
             ></textarea>
             <small id="direccionHelp" class="form-help">Calle, número, apartamento (si aplica)</small>
@@ -63,34 +75,36 @@
 
             <label for="envio">Tipo de envío</label>
             <select id="envio" name="envio" required>
-              <option value="">Selecciona una opción</option>
-              <option value="retiro">Retiro en tienda (0 ARS)</option>
-              <option value="normal">Envío estándar (150 ARS)</option>
-              <option value="express">Envío express (350 ARS)</option>
+              <option value="">Seleccioná una opción</option>
+              <option value="retiro">Retiro en tienda ($ 0)</option>
+              <option value="normal">Envío estándar ($ 150)</option>
+              <option value="express">Envío express ($ 350)</option>
             </select>
 
             <label for="notas">Notas adicionales</label>
-            <textarea 
+            <textarea
               id="notas"
-              name="notas" 
+              name="notas"
               rows="2"
               placeholder="Ej: Dejar en recepción, llamar al llegar"
             ></textarea>
 
             <label for="pago">Método de pago</label>
             <select id="pago" name="pago" required>
-              <option value="">Selecciona un método</option>
-              <option value="tarjeta">Tarjeta de crédito/débito</option>
-              <option value="transferencia">Transferencia bancaria</option>
-              <option value="mercadopago">MercadoPago</option>
+              <option value="">Seleccioná un método</option>
+              <option value="Tarjeta de crédito/débito">Tarjeta de crédito/débito</option>
+              <option value="Transferencia bancaria">Transferencia bancaria</option>
+              <option value="MercadoPago">MercadoPago</option>
             </select>
           </fieldset>
 
-          <button type="submit" class="btn-primary btn-large">Proceder al pago</button>
+          <button type="submit" class="btn-primary btn-large">Proceder al pago →</button>
           <a href="index.html" class="btn-secondary btn-large">Cancelar y volver</a>
+
         </form>
       </div>
 
+      <!-- Resumen -->
       <div class="checkout-summary-section">
         <h2>Resumen de tu compra</h2>
         <div id="checkoutCart" class="checkout-cart">
@@ -111,36 +125,33 @@
           </div>
         </div>
       </div>
+
     </div>
   </main>
 
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-column">
-        <h3>🛍 Mi Tienda</h3>
+        <h3>Traemos Todo</h3>
         <p>Tu tienda online de confianza. Productos de calidad, al mejor precio.</p>
       </div>
-
       <div class="footer-column">
         <h4>Enlaces</h4>
         <ul>
           <li><a href="index.html">Inicio</a></li>
           <li><a href="inventario.html">Inventario</a></li>
           <li><a href="admin.html">Administrar</a></li>
-          <li><a href="#">Contacto</a></li>
         </ul>
       </div>
-
       <div class="footer-column">
         <h4>Contacto</h4>
-        <p>📧 contacto@mitienda.com</p>
-        <p>📞 +54 9 11 1234 5678</p>
+        <p>📧 contacto@traemostodo.com</p>
+        <p>📞 +54 9 11 5142 6931</p>
         <p>📍 Buenos Aires, Argentina</p>
       </div>
     </div>
-
     <div class="footer-bottom">
-      <p>&copy; 2025 Mi Tienda. Todos los derechos reservados.</p>
+      <p>&copy; 2026 Traemos Todo. Todos los derechos reservados.</p>
     </div>
   </footer>
 
